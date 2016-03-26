@@ -10,10 +10,19 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    var user: User? {
+        didSet {
+            usernameLabel.text = user?.username
+            profileImageView.image = user?.profileImage
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        usernameLabel.text = "yourName"
+        usernameLabel.text = "Josh"
+        if let firstUser = uiRealm.objects(User).first {
+            self.user = firstUser
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +66,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImageView.image = image
+            let newUser = User()
+            newUser.profileImage = image
+            newUser.username = "Josh"
+            try! uiRealm.write({
+                uiRealm.add(newUser)
+            })
+
         }
         
         dismissViewControllerAnimated(true, completion: nil)

@@ -8,15 +8,18 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-class User {
+class User: Object {
     
-    let username: String
-    let profileImage: UIImage
-    
-    init (username: String, profileImage: UIImage) {
-        self.username = username
-        self.profileImage = profileImage
+    dynamic var username: String = ""
+    dynamic var profileImageData: NSData? = NSData()
+    var profileImage: UIImage? {
+        get { return UIImage(data: profileImageData!) }
+        set { profileImageData = UIImageJPEGRepresentation(newValue!, 1.0)! }
     }
     
+    override static func ignoredProperties() -> [String] {
+        return ["profileImage"]
+    }
 }

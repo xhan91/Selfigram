@@ -8,17 +8,22 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-class Post {
+class Post: Object {
     
-    let image: UIImage
-    let user: User
-    let comment: String
     
-    init ( image: UIImage, user: User, comment: String ) {
-        self.image = image
-        self.user = user
-        self.comment = comment
+    dynamic var user: User?
+    dynamic var comment: String = ""
+    dynamic var imageData: NSData? = NSData()
+    
+    var image: UIImage? {
+        get { return UIImage(data: imageData!) }
+        set { imageData = UIImageJPEGRepresentation(newValue!, 1.0)! }
     }
     
+    override static func ignoredProperties() -> [String] {
+        return ["image"]
+    }
+
 }

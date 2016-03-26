@@ -142,7 +142,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="commentLabel" destination="Fo6-29-6Jq" id="7tz-vA-h21"/>
-                                    <outlet property="selfieImageVIew" destination="TfZ-AO-iTk" id="Jmu-i4-vXV"/>
+                                    <outlet property="selfieImageView" destination="TfZ-AO-iTk" id="m5b-2C-xGZ"/>
                                     <outlet property="usernameLabel" destination="FbL-K7-gZV" id="uaT-5Y-Gpa"/>
                                 </connections>
                             </tableViewCell>

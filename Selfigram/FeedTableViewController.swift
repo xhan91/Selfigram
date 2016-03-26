@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FeedTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var words = ["Hello","my","name","is","Selfigram"]
-    var posts = [Post]()
+    var posts: Results<Post>?
+    var user: User?
     //var newPost: Post?
     
     @IBAction func cameraButtonPressed(sender: UIBarButtonItem) {
@@ -45,9 +47,16 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let me = User(username: "Josh", profileImage: UIImage(named: "Grumpy-Cat")!)
-            let post = Post(image: image, user: me, comment: "My Selfie")
-            posts.insert(post, atIndex: 0)
+            if let user = uiRealm.objects(User).first {
+                let newPost = Post()
+                newPost.image = image
+                newPost.user = user
+                newPost.comment = "My selfie"
+                try! uiRealm.write({
+                    uiRealm.add(newPost)
+                })
+                updateData()
+            }
         }
         dismissViewControllerAnimated(true, completion: nil)
         tableView.reloadData()
@@ -56,14 +65,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let me = User(username: "Josh", profileImage: UIImage(named: "Grumpy-Cat")!)
-        let post0 = Post(image: UIImage(named: "Grumpy-Cat")!, user: me, comment: "post0")
-        let post1 = Post(image: UIImage(named: "Grumpy-Cat")!, user: me, comment: "post1")
-        let post2 = Post(image: UIImage(named: "Grumpy-Cat")!, user: me, comment: "post2")
-        let post3 = Post(image: UIImage(named: "Grumpy-Cat")!, user: me, comment: "post3")
-        let post4 = Post(image: UIImage(named: "Grumpy-Cat")!, user: me, comment: "post4")
-        posts = [post0, post1, post2, post3, post4]
+        updateData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -71,9 +73,9 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateData() {
+        posts = uiRealm.objects(Post)
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -85,13 +87,17 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        if posts != nil {
+            return posts!.count
+        } else {
+            return 0
+        }
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
-        let post = posts[indexPath.row]
+        let post = posts![indexPath.row]
         cell.post = post
         return cell
     }
