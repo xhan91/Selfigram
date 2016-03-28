@@ -14,7 +14,29 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     var words = ["Hello","my","name","is","Selfigram"]
     var posts: Results<Post>?
     var user: User?
-    //var newPost: Post?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateData()
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+
+    func updateData() {
+        posts = uiRealm.objects(Post).sorted("createdAt", ascending: false)
+        tableView.reloadData()
+    }
+
+    
+    @IBAction func trashButtonPressed(sender: UIBarButtonItem) {
+        try! uiRealm.write({
+            uiRealm.delete(self.posts!)
+        })
+        updateData()
+    }
     
     @IBAction func cameraButtonPressed(sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
@@ -61,23 +83,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
         dismissViewControllerAnimated(true, completion: nil)
         tableView.reloadData()
     }
-
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateData()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    func updateData() {
-        posts = uiRealm.objects(Post)
-        tableView.reloadData()
-    }
-
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Profile VIew Controller-->
@@ -74,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="1210" y="933"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Photo Library Collection View Controller-->
         <scene sceneID="dBX-Dr-sEz">
             <objects>
-                <collectionViewController id="Loe-P2-Ay1" sceneMemberID="viewController">
+                <collectionViewController id="Loe-P2-Ay1" customClass="PhotoLibraryCollectionViewController" customModule="Selfigram" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="56o-an-fcc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,19 +89,28 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="agV-k1-rDt">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="agV-k1-rDt" customClass="PhotoLibraryCollectionViewCell" customModule="Selfigram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="191" height="166"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="191" height="166"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3r-Xi-jTU">
-                                            <rect key="frame" x="28" y="19" width="149" height="128"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W3r-Xi-jTU">
+                                            <rect key="frame" x="8" y="8" width="175" height="150"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="W3r-Xi-jTU" firstAttribute="top" secondItem="agV-k1-rDt" secondAttribute="topMargin" id="W1y-8E-DA4"/>
+                                    <constraint firstItem="W3r-Xi-jTU" firstAttribute="leading" secondItem="agV-k1-rDt" secondAttribute="leadingMargin" id="WQG-El-MTB"/>
+                                    <constraint firstItem="W3r-Xi-jTU" firstAttribute="trailing" secondItem="agV-k1-rDt" secondAttribute="trailingMargin" id="ZNN-Ps-Gso"/>
+                                    <constraint firstItem="W3r-Xi-jTU" firstAttribute="bottom" secondItem="agV-k1-rDt" secondAttribute="bottomMargin" id="pbc-xI-oc5"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="photoImageView" destination="W3r-Xi-jTU" id="VYT-fC-wLl"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -201,11 +211,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="266-o5-taj">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Y5u-Ng-6aj">
-                            <connections>
-                                <action selector="cameraButtonPressed:" destination="Iba-CN-Gea" id="Fuf-Bw-4j9"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="camera" id="Y5u-Ng-6aj">
+                                <connections>
+                                    <action selector="cameraButtonPressed:" destination="Iba-CN-Gea" id="Fuf-Bw-4j9"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="K3E-cY-lSb">
+                                <connections>
+                                    <action selector="trashButtonPressed:" destination="Iba-CN-Gea" id="CJD-Zp-odJ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmY-qM-mVF" userLabel="First Responder" sceneMemberID="firstResponder"/>

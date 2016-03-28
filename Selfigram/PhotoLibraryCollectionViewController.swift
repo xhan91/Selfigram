@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "Cell"
 
-class photoLibraryCollectionViewController: UICollectionViewController {
+class PhotoLibraryCollectionViewController: UICollectionViewController {
 
+    var myPosts: Results<Post>?
+    var user: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,11 +26,13 @@ class photoLibraryCollectionViewController: UICollectionViewController {
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        // user = uiRealm.objects(User).first
+        updateData()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func updateData() {
+        myPosts = uiRealm.objects(Post)
+        collectionView!.reloadData()
     }
 
     /*
@@ -43,20 +49,24 @@ class photoLibraryCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        if myPosts != nil {
+            return myPosts!.count
+        } else {
+            return 0
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoLibraryCollectionViewCell
+        let post = myPosts![indexPath.row]
+        cell.photo = post.image
+        
         return cell
     }
 

@@ -16,6 +16,7 @@ class Post: Object {
     dynamic var user: User?
     dynamic var comment: String = ""
     dynamic var imageData: NSData? = NSData()
+    dynamic var createdAt: NSDate = NSDate()
     
     var image: UIImage? {
         get { return UIImage(data: imageData!) }
