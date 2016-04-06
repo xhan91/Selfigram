@@ -1,4 +1,7 @@
 PODS:
+  - Bolts/Tasks (1.7.0)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
   - Realm (0.98.5):
     - Realm/Headers (= 0.98.5)
   - Realm/Headers (0.98.5)
@@ -6,9 +9,12 @@ PODS:
     - Realm (= 0.98.5)
 
 DEPENDENCIES:
+  - Parse
   - RealmSwift
 
 SPEC CHECKSUMS:
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   Realm: db08379969e45cea2edd1c3c0a090fe9e22d2d2f
   RealmSwift: cb11ad1c35e15dc982f2dbf5afe2a3124193a358
 

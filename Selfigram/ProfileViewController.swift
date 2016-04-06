@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -19,15 +20,31 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        usernameLabel.text = "Josh"
-        if let firstUser = uiRealm.objects(User).first {
-            self.user = firstUser
-        }
+//        usernameLabel.text = "Josh"
+//        if let firstUser = uiRealm.objects(User).first {
+//            self.user = firstUser
+//        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let currentUser = PFUser.currentUser() {
+            let user = User()
+            user.username = currentUser.username!
+            
+            
+            
+            if let imageFile = currentUser["profileImage"] as? PFFile {
+                imageFile.getDataInBackgroundWithBlock({ (data, error) in
+                    if let imageData = data {
+                        user.profileImage = UIImage(data: imageData)
+                        self.user = user
+                    }
+                })
+            }
+            
+        }
     }
     
     @IBOutlet weak var profileImageView: UIImageView!
@@ -65,14 +82,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileImageView.image = image
-            let newUser = User()
-            newUser.profileImage = image
-            newUser.username = "Josh"
-            try! uiRealm.write({
-                uiRealm.add(newUser)
-            })
-
+            if let imageData = UIImageJPEGRepresentation(image, 1.0),
+                let imageFile = PFFile(data: imageData),
+                let currentUser = PFUser.currentUser() {
+                currentUser["profileImage"] = imageFile
+                currentUser.saveInBackgroundWithBlock({ (success, error) in
+                    if success {
+                        print("upload and save new profile image")
+                    }
+                })
+            }
         }
         
         dismissViewControllerAnimated(true, completion: nil)

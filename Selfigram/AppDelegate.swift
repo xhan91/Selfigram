@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import Bolts
+import Parse
 
 let uiRealm = try! Realm()
 
@@ -16,16 +18,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        // MARK: Realm part
         let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in
             if (oldSchemaVersion) < 1 {
                 
             }})
         Realm.Configuration.defaultConfiguration = config
-        let uiRealm = try! Realm()
+        //let uiRealm = try! Realm()
+        
+        // MARK: Parse part
+    Parse.setApplicationId("qpcf91x0NvWQFNXkoCs5oncu9PKn3MiQmF9qbuBW",clientKey:"XYOGnzcNNH5V4tscG47ecIg9BzRQSG5tlBtaCPWf")
+        
+        let user = PFUser()
+        let username = "josh"
+        let password = "xinxin129"
+        user.username = username
+        user.password = password
+        user.signUpInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("successfully signed up a user")
+            }else {
+                PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) -> Void in
+                    if let username = user?.username {
+                        print("successfully logged in \(username)")
+                    } else {
+                        print("wrong password")
+                    }
+                }
+            }
+        }
         
         return true
     }

@@ -23,7 +23,7 @@ class PhotoLibraryCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         // user = uiRealm.objects(User).first
@@ -55,11 +55,14 @@ class PhotoLibraryCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        if myPosts != nil {
-            return myPosts!.count
-        } else {
-            return 0
-        }
+//        if myPosts != nil {
+//            return myPosts!.count
+//        } else {
+//            return 0
+//        }
+        
+        return myPosts?.count ?? 0
+        
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
