@@ -78,6 +78,7 @@
 		F9CC4EBD1C98F4AF00535D63 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F9CC4EFE1C9B8BBC00535D63 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F9CC4F001C9B8E0700535D63 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F9FC6A011CB4C06400249EAA /* Selfigram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Selfigram.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +158,7 @@
 		F9AE31551C926E5000C8A636 /* Selfigram */ = {
 			isa = PBXGroup;
 			children = (
+				F9FC6A011CB4C06400249EAA /* Selfigram.entitlements */,
 				F9AE31561C926E5000C8A636 /* AppDelegate.swift */,
 				F9AE31581C926E5000C8A636 /* ViewController.swift */,
 				F9AE315A1C926E5000C8A636 /* Main.storyboard */,
@@ -264,6 +266,29 @@
 					F9AE31521C926E5000C8A636 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 985SCTYCG4;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.DataProtection = {
+								enabled = 0;
+							};
+							com.apple.HealthKit = {
+								enabled = 0;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					F9AE31661C926E5000C8A636 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -526,13 +551,15 @@
 			baseConfigurationReference = 9FF669D6B3A228ED0960A726 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Selfigram/Selfigram.entitlements;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Selfigram/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xhan91.Selfigram;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xhan91.SelfigramWithParse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -542,13 +569,15 @@
 			baseConfigurationReference = 2E77212A15302F0F27D937EA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Selfigram/Selfigram.entitlements;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Selfigram/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xhan91.Selfigram;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xhan91.SelfigramWithParse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

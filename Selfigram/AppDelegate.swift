@@ -7,11 +7,8 @@
 //
 
 import UIKit
-import RealmSwift
 import Bolts
 import Parse
-
-let uiRealm = try! Realm()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,17 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        // MARK: Realm part
-        let config = Realm.Configuration(schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in
-            if (oldSchemaVersion) < 1 {
-                
-            }})
-        Realm.Configuration.defaultConfiguration = config
-        //let uiRealm = try! Realm()
-        
         // MARK: Parse part
-    Parse.setApplicationId("qpcf91x0NvWQFNXkoCs5oncu9PKn3MiQmF9qbuBW",clientKey:"XYOGnzcNNH5V4tscG47ecIg9BzRQSG5tlBtaCPWf")
+        
+        Post.registerSubclass()
+        Parse.setApplicationId("qpcf91x0NvWQFNXkoCs5oncu9PKn3MiQmF9qbuBW",
+                               clientKey:"XYOGnzcNNH5V4tscG47ecIg9BzRQSG5tlBtaCPWf")
         
         let user = PFUser()
         let username = "josh"

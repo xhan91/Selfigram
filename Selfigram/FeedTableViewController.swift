@@ -7,16 +7,15 @@
 //
 
 import UIKit
-import RealmSwift
+import Parse
 
 class FeedTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var words = ["Hello","my","name","is","Selfigram"]
-    var posts: Results<Post>?
-    var user: User?
-
+    var posts = [Post]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        tableView.setEditing(true, animated: true)
         updateData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -26,16 +25,16 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     }
 
     func updateData() {
-        posts = uiRealm.objects(Post).sorted("createdAt", ascending: false)
-        tableView.reloadData()
-    }
-
-    
-    @IBAction func trashButtonPressed(sender: UIBarButtonItem) {
-        try! uiRealm.write({
-            uiRealm.delete(self.posts!)
-        })
-        updateData()
+        if let query = Post.query() {
+            query.orderByDescending("createdAt")
+            query.includeKey("user")
+            query.findObjectsInBackgroundWithBlock{ (posts, _) in
+                if let posts = posts as? [Post] {
+                    self.posts = posts
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     @IBAction func cameraButtonPressed(sender: UIBarButtonItem) {
@@ -69,41 +68,40 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            if let user = uiRealm.objects(User).first {
-                let newPost = Post()
-                newPost.image = image
-                newPost.user = user
-                newPost.comment = "My selfie"
-                try! uiRealm.write({
-                    uiRealm.add(newPost)
-                })
-                updateData()
-            }
+            if let imageData = UIImageJPEGRepresentation(image, 1.0),
+                let imageFile = PFFile(data: imageData),
+                let user = PFUser.currentUser() {
+                    let comment = "This is my Selfie"
+                    let post = Post(image: imageFile, user: user, comment: comment)
+                    post.saveInBackgroundWithBlock({ (success, error) in
+                        if success {
+                            print("Upload a new photo successfully")
+                            self.posts.insert(post, atIndex: 0)
+                            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                        }
+                    })
+                }
         }
         dismissViewControllerAnimated(true, completion: nil)
-        tableView.reloadData()
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if posts != nil {
-            return posts!.count
-        } else {
-            return 0
-        }
+        return posts.count ?? 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
-        let post = posts![indexPath.row]
+        let post = posts[indexPath.row]
         cell.post = post
         return cell
     }
@@ -117,7 +115,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -127,7 +125,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

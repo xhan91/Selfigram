@@ -17,8 +17,15 @@ class SelfieCell: UITableViewCell {
     
     var post: Post? {
         didSet {
-            selfieImageView.image = post?.image
-            usernameLabel.text = post?.user!.username
+            if let imageFile = post?.image {
+                imageFile.getDataInBackgroundWithBlock({ (data, error) in
+                    if let data = data {
+                        let image = UIImage(data: data)
+                        self.selfieImageView.image = image
+                    }
+                })
+            }
+            usernameLabel.text = post?.user.username
             commentLabel.text = post?.comment
         }
     }

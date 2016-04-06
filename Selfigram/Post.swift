@@ -8,23 +8,23 @@
 
 import Foundation
 import UIKit
-import RealmSwift
+import Parse
 
-class Post: Object {
+class Post: PFObject, PFSubclassing {
     
-    
-    dynamic var user: User?
-    dynamic var comment: String = ""
-    dynamic var imageData: NSData? = NSData()
-    dynamic var createdAt: NSDate = NSDate()
-    
-    var image: UIImage? {
-        get { return UIImage(data: imageData!) }
-        set { imageData = UIImageJPEGRepresentation(newValue!, 1.0)! }
+    static func parseClassName() -> String {
+        return "Post"
     }
     
-    override static func ignoredProperties() -> [String] {
-        return ["image"]
+    @NSManaged var user: PFUser
+    @NSManaged var image: PFFile
+    @NSManaged var comment: String
+    
+    convenience init(image:PFFile, user:PFUser, comment: String) {
+        self.init()
+        self.image = image
+        self.user = user
+        self.comment = comment
     }
-
+    
 }
