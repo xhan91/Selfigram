@@ -19,6 +19,9 @@ class Post: PFObject, PFSubclassing {
     @NSManaged var user: PFUser
     @NSManaged var image: PFFile
     @NSManaged var comment: String
+    var likes: PFRelation! {
+        return relationForKey("likes")
+    }
     
     convenience init(image:PFFile, user:PFUser, comment: String) {
         self.init()
