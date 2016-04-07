@@ -30,6 +30,9 @@ class SelfieCell: UITableViewCell {
         }
     }
     
+    @IBAction func likeButtonPressed(sender: UIButton) {
+        sender.selected = !sender.selected
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

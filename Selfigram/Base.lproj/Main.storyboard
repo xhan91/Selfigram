@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Profile VIew Controller-->
@@ -186,14 +185,28 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8oD-ew-NDh">
+                                            <rect key="frame" x="561" y="266" width="23" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="HHl-E8-ylg"/>
+                                                <constraint firstAttribute="width" constant="23" id="OWb-mr-xm1"/>
+                                            </constraints>
+                                            <state key="normal" image="hearts-off"/>
+                                            <state key="selected" image="hearts-on"/>
+                                            <connections>
+                                                <action selector="likeButtonPressed:" destination="eCb-Gd-VuZ" eventType="touchUpInside" id="Cwy-kn-clp"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="TfZ-AO-iTk" secondAttribute="trailing" id="8wI-eZ-duL"/>
+                                        <constraint firstItem="8oD-ew-NDh" firstAttribute="top" secondItem="TfZ-AO-iTk" secondAttribute="bottom" constant="8" id="HRN-sb-dx3"/>
                                         <constraint firstItem="TfZ-AO-iTk" firstAttribute="top" secondItem="jH2-Ca-maQ" secondAttribute="topMargin" id="TKa-46-STD"/>
                                         <constraint firstItem="FbL-K7-gZV" firstAttribute="top" secondItem="TfZ-AO-iTk" secondAttribute="bottom" constant="8" id="ck5-6k-7Ca"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="FbL-K7-gZV" secondAttribute="leading" id="dnM-W5-JxM"/>
                                         <constraint firstItem="TfZ-AO-iTk" firstAttribute="leading" secondItem="jH2-Ca-maQ" secondAttribute="leadingMargin" id="fV4-Zc-v32"/>
                                         <constraint firstItem="Fo6-29-6Jq" firstAttribute="top" secondItem="FbL-K7-gZV" secondAttribute="bottom" constant="8" id="sMd-XO-xTq"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="8oD-ew-NDh" secondAttribute="trailing" constant="8" id="vL6-SV-9PA"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="Fo6-29-6Jq" secondAttribute="leading" id="y3v-rl-JiQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -211,18 +224,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="266-o5-taj">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="camera" id="Y5u-Ng-6aj">
-                                <connections>
-                                    <action selector="cameraButtonPressed:" destination="Iba-CN-Gea" id="Fuf-Bw-4j9"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="trash" id="K3E-cY-lSb">
-                                <connections>
-                                    <action selector="trashButtonPressed:" destination="Iba-CN-Gea" id="CJD-Zp-odJ"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Y5u-Ng-6aj">
+                            <connections>
+                                <action selector="cameraButtonPressed:" destination="Iba-CN-Gea" id="Fuf-Bw-4j9"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmY-qM-mVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -316,6 +322,8 @@
         <image name="Activities" width="25" height="25"/>
         <image name="NewsFeed" width="25" height="25"/>
         <image name="Profile" width="25" height="25"/>
+        <image name="hearts-off" width="42" height="37"/>
+        <image name="hearts-on" width="42" height="37"/>
         <image name="placeholder" width="256" height="256"/>
     </resources>
 </document>
