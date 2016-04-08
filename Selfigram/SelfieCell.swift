@@ -47,10 +47,7 @@ class SelfieCell: UITableViewCell {
     
     @IBAction func likeButtonPressed(sender: UIButton) {
         sender.selected = !sender.selected
-        if let post = post,
-            let user = PFUser.currentUser() {
-            
-            // like button has been selected and we should add a like from currentUser
+        if let post = post, let user = PFUser.currentUser() {
             if sender.selected {
                 
                 // PFRelation has a useful method called addObject that adds the unique element

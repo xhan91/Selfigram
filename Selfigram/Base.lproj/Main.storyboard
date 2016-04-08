@@ -109,6 +109,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="photoImageView" destination="W3r-Xi-jTU" id="VYT-fC-wLl"/>
+                                    <segue destination="6MZ-Tb-Wt3" kind="show" identifier="fromPhotoLibraryToPost" id="yFG-Pp-wog"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -120,7 +121,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bet-Mg-IvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1956" y="933"/>
+            <point key="canvasLocation" x="1898" y="185"/>
         </scene>
         <!--Activities View Controller-->
         <scene sceneID="LAM-Tn-f4M">
@@ -131,12 +132,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="W16-vt-dpm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="eSS-5J-skT" style="IBUITableViewCellStyleDefault" id="W16-vt-dpm">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W16-vt-dpm" id="Who-WJ-Drc">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eSS-5J-skT">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -216,6 +226,7 @@
                                     <outlet property="likeButton" destination="8oD-ew-NDh" id="IaS-Fm-19n"/>
                                     <outlet property="selfieImageView" destination="TfZ-AO-iTk" id="m5b-2C-xGZ"/>
                                     <outlet property="usernameLabel" destination="FbL-K7-gZV" id="uaT-5Y-Gpa"/>
+                                    <segue destination="6MZ-Tb-Wt3" kind="show" identifier="fromFeedToPost" id="DxQ-om-TRP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -235,6 +246,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmY-qM-mVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1210" y="-540"/>
+        </scene>
+        <!--Post View Controller-->
+        <scene sceneID="6u3-ja-FdP">
+            <objects>
+                <viewController id="6MZ-Tb-Wt3" customClass="PostViewController" customModule="Selfigram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oyz-Nq-Ni2"/>
+                        <viewControllerLayoutGuide type="bottom" id="KAk-hG-Gqu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Vdu-26-zLo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="0ia-uW-IzF">
+                                <rect key="frame" x="20" y="72" width="560" height="351"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="500" id="A4K-Iu-San"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="A4K-Iu-San"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0ia-uW-IzF" firstAttribute="top" secondItem="oyz-Nq-Ni2" secondAttribute="bottom" constant="8" id="8el-VY-qjI"/>
+                            <constraint firstItem="KAk-hG-Gqu" firstAttribute="top" secondItem="0ia-uW-IzF" secondAttribute="bottom" constant="128" id="gVf-g1-c5C"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="0ia-uW-IzF" secondAttribute="leading" id="hZa-UY-sei"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0ia-uW-IzF" secondAttribute="trailing" id="lwY-h3-ded"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="0ia-uW-IzF" secondAttribute="leading" id="qbm-Ku-28m"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="qbm-Ku-28m"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="postImageView" destination="0ia-uW-IzF" id="rpG-NS-T1p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hwa-xv-3EU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1886" y="-540"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pHj-1q-WEp">
@@ -327,4 +384,7 @@
         <image name="hearts-on" width="42" height="37"/>
         <image name="placeholder" width="256" height="256"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yFG-Pp-wog"/>
+    </inferredMetricsTieBreakers>
 </document>

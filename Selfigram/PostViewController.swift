@@ -8,10 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class PostViewController: UIViewController {
+    
+    @IBOutlet weak var postImageView: UIImageView!
+    
+    var image: UIImage? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.postImageView.image = self.image
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -19,7 +25,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 

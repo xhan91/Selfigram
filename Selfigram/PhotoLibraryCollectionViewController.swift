@@ -7,71 +7,96 @@
 //
 
 import UIKit
-import RealmSwift
+import Parse
 
 private let reuseIdentifier = "Cell"
 
 class PhotoLibraryCollectionViewController: UICollectionViewController {
-//
-//    var myPosts: Results<Post>?
-//    var user: User?
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Uncomment the following line to preserve selection between presentations
-//        // self.clearsSelectionOnViewWillAppear = false
-//
-//        // Register cell classes
-////        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-//
-//        // Do any additional setup after loading the view.
-//        // user = uiRealm.objects(User).first
-//        updateData()
-//    }
-//    
-//    func updateData() {
-//        myPosts = uiRealm.objects(Post)
-//        collectionView!.reloadData()
-//    }
-//
-//    /*
-//    // MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        // Get the new view controller using [segue destinationViewController].
-//        // Pass the selected object to the new view controller.
-//    }
-//    */
-//
-//    // MARK: UICollectionViewDataSource
-//
-//    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
-//
-//
-//    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of items
-////        if myPosts != nil {
-////            return myPosts!.count
-////        } else {
-////            return 0
-////        }
-//        
-//        return myPosts?.count ?? 0
-//        
-//    }
-//
-//    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoLibraryCollectionViewCell
-//        let post = myPosts![indexPath.row]
-//        cell.photo = post.image
-//        
-//        return cell
-//    }
+
+    var posts = [Post]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Register cell classes
+//        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
+        // Do any additional setup after loading the view.
+        // user = uiRealm.objects(User).first
+        updateData()
+    }
+    
+    func updateData() {
+        if let query = Post.query(), let user = PFUser.currentUser() {
+            query.whereKey("user", equalTo: user)
+            query.orderByDescending("createdAt")
+            query.findObjectsInBackgroundWithBlock({ (posts, error) in
+                if let posts = posts as? [Post] {
+                    self.posts = posts
+                    self.collectionView!.reloadData()
+                }
+            })
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "fromPhotoLibraryToPost":
+                if let destination = segue.destinationViewController as? PostViewController,
+                    let cell = sender as? PhotoLibraryCollectionViewCell {
+                    if let image = cell.photoImageView.image {
+                        destination.image = image
+                    } else {
+                        print("image is nil")
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
+
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+    // MARK: UICollectionViewDataSource
+
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return posts.count ?? 0
+        
+    }
+
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoLibraryCollectionViewCell
+        let post = posts[indexPath.row]
+        let imageFile = post.image
+        imageFile.getDataInBackgroundWithBlock { (data, error) in
+            if let data = data {
+                let image = UIImage(data: data)
+                cell.photo = image
+            }
+        }
+        
+        return cell
+    }
 
     // MARK: UICollectionViewDelegate
 

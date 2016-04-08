@@ -15,7 +15,6 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.setEditing(true, animated: true)
         updateData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -28,7 +27,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
         if let query = Post.query() {
             query.orderByDescending("createdAt")
             query.includeKey("user")
-            query.findObjectsInBackgroundWithBlock{ (posts, _) in
+            query.findObjectsInBackgroundWithBlock{ (posts, error) in
                 if let posts = posts as? [Post] {
                     self.posts = posts
                     self.tableView.reloadData()
@@ -68,7 +67,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            if let imageData = UIImageJPEGRepresentation(image, 1.0),
+            if let imageData = UIImageJPEGRepresentation(image, 0.25),
                 let imageFile = PFFile(data: imageData),
                 let user = PFUser.currentUser() {
                     let comment = "This is my Selfie"
@@ -86,6 +85,32 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? SelfieCell {
+//            let postViewController = UIStoryboard.in
+//            postViewController.postImageView.image = cell.selfieImageView.image
+//            self.navigationController?.pushViewController(postViewController, animated: true)
+//        }
+//    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "fromFeedToPost":
+                if let destination = segue.destinationViewController as? PostViewController,
+                    let cell = sender as? SelfieCell {
+                    if let image = cell.selfieImageView.image {
+                        destination.image = image
+                    } else {
+                        print("image is nil")
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -115,7 +140,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     }
     */
 
-    
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -125,7 +150,7 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    
+    */
 
     /*
     // Override to support rearranging the table view.
