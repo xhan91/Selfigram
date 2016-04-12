@@ -126,13 +126,13 @@
         <!--Activities View Controller-->
         <scene sceneID="LAM-Tn-f4M">
             <objects>
-                <tableViewController title="Activities View Controller" id="2oc-o2-ISJ" sceneMemberID="viewController">
+                <tableViewController title="Activities View Controller" id="2oc-o2-ISJ" customClass="ActivityViewController" customModule="Selfigram" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rap-BQ-Qjb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="eSS-5J-skT" style="IBUITableViewCellStyleDefault" id="W16-vt-dpm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="eSS-5J-skT" style="IBUITableViewCellStyleDefault" id="W16-vt-dpm" customClass="ActivityCell" customModule="Selfigram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W16-vt-dpm" id="Who-WJ-Drc">
@@ -179,6 +179,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TfZ-AO-iTk">
                                             <rect key="frame" x="8" y="8" width="584" height="250"/>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="250" id="sQJ-w2-XWL"/>
                                             </constraints>
@@ -207,14 +208,23 @@
                                                 <action selector="likeButtonPressed:" destination="eCb-Gd-VuZ" eventType="touchUpInside" id="Cwy-kn-clp"/>
                                             </connections>
                                         </button>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hearts-on" translatesAutoresizingMaskIntoConstraints="NO" id="pdB-mA-hiq">
+                                            <rect key="frame" x="289" y="123" width="23" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="HPX-ih-Ba3"/>
+                                                <constraint firstAttribute="width" constant="23" id="kiX-5F-sAU"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="TfZ-AO-iTk" secondAttribute="trailing" id="8wI-eZ-duL"/>
+                                        <constraint firstItem="pdB-mA-hiq" firstAttribute="centerX" secondItem="TfZ-AO-iTk" secondAttribute="centerX" id="AuH-kg-lNf"/>
                                         <constraint firstItem="8oD-ew-NDh" firstAttribute="top" secondItem="TfZ-AO-iTk" secondAttribute="bottom" constant="8" id="HRN-sb-dx3"/>
                                         <constraint firstItem="TfZ-AO-iTk" firstAttribute="top" secondItem="jH2-Ca-maQ" secondAttribute="topMargin" id="TKa-46-STD"/>
                                         <constraint firstItem="FbL-K7-gZV" firstAttribute="top" secondItem="TfZ-AO-iTk" secondAttribute="bottom" constant="8" id="ck5-6k-7Ca"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="FbL-K7-gZV" secondAttribute="leading" id="dnM-W5-JxM"/>
                                         <constraint firstItem="TfZ-AO-iTk" firstAttribute="leading" secondItem="jH2-Ca-maQ" secondAttribute="leadingMargin" id="fV4-Zc-v32"/>
+                                        <constraint firstItem="pdB-mA-hiq" firstAttribute="centerY" secondItem="TfZ-AO-iTk" secondAttribute="centerY" id="i4T-bq-wnV"/>
                                         <constraint firstItem="Fo6-29-6Jq" firstAttribute="top" secondItem="FbL-K7-gZV" secondAttribute="bottom" constant="8" id="sMd-XO-xTq"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="8oD-ew-NDh" secondAttribute="trailing" constant="8" id="vL6-SV-9PA"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="Fo6-29-6Jq" secondAttribute="leading" id="y3v-rl-JiQ"/>
@@ -223,16 +233,17 @@
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="commentLabel" destination="Fo6-29-6Jq" id="7tz-vA-h21"/>
+                                    <outlet property="heartAnimationView" destination="pdB-mA-hiq" id="Ca5-hj-vL0"/>
                                     <outlet property="likeButton" destination="8oD-ew-NDh" id="IaS-Fm-19n"/>
                                     <outlet property="selfieImageView" destination="TfZ-AO-iTk" id="m5b-2C-xGZ"/>
                                     <outlet property="usernameLabel" destination="FbL-K7-gZV" id="uaT-5Y-Gpa"/>
-                                    <segue destination="6MZ-Tb-Wt3" kind="show" identifier="fromFeedToPost" id="DxQ-om-TRP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Iba-CN-Gea" id="Oxc-1M-v9a"/>
                             <outlet property="delegate" destination="Iba-CN-Gea" id="Ih6-az-b2S"/>
+                            <outletCollection property="gestureRecognizers" destination="crc-0s-MVx" appends="YES" id="egO-y8-PoU"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="266-o5-taj">
@@ -242,8 +253,19 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Yfn-VN-ojj">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshPulled:" destination="Iba-CN-Gea" eventType="valueChanged" id="twx-kY-pU1"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmY-qM-mVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer cancelsTouchesInView="NO" numberOfTapsRequired="2" id="crc-0s-MVx">
+                    <connections>
+                        <action selector="doubleTappedSelfie:" destination="Iba-CN-Gea" id="sW6-bd-mNm"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1210" y="-540"/>
         </scene>
@@ -272,6 +294,7 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="0ia-uW-IzF" firstAttribute="top" secondItem="oyz-Nq-Ni2" secondAttribute="bottom" constant="8" id="8el-VY-qjI"/>
                             <constraint firstItem="KAk-hG-Gqu" firstAttribute="top" secondItem="0ia-uW-IzF" secondAttribute="bottom" constant="128" id="gVf-g1-c5C"/>
@@ -284,12 +307,20 @@
                                 <exclude reference="qbm-Ku-28m"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="82l-Ec-4l4" appends="YES" id="AxG-e2-ppb"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="postImageView" destination="0ia-uW-IzF" id="rpG-NS-T1p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hwa-xv-3EU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="82l-Ec-4l4">
+                    <connections>
+                        <action selector="screenTapped:" destination="6MZ-Tb-Wt3" id="LwL-ES-3Ma"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1886" y="-540"/>
         </scene>
@@ -384,7 +415,4 @@
         <image name="hearts-on" width="42" height="37"/>
         <image name="placeholder" width="256" height="256"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="yFG-Pp-wog"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -23,6 +23,8 @@
 		F9CC4EBE1C98F4AF00535D63 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CC4EBD1C98F4AF00535D63 /* ProfileViewController.swift */; };
 		F9CC4EFF1C9B8BBC00535D63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CC4EFE1C9B8BBC00535D63 /* User.swift */; };
 		F9CC4F011C9B8E0700535D63 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CC4F001C9B8E0700535D63 /* Post.swift */; };
+		F9D86B441CBD735600FBC9BF /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D86B431CBD735600FBC9BF /* ActivityViewController.swift */; };
+		F9D86B461CBD73C400FBC9BF /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D86B451CBD73C400FBC9BF /* ActivityCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		F9CC4EBD1C98F4AF00535D63 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F9CC4EFE1C9B8BBC00535D63 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F9CC4F001C9B8E0700535D63 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F9D86B431CBD735600FBC9BF /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		F9D86B451CBD73C400FBC9BF /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		F9FC6A011CB4C06400249EAA /* Selfigram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Selfigram.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +169,8 @@
 				F9AE31561C926E5000C8A636 /* AppDelegate.swift */,
 				F9AE31581C926E5000C8A636 /* PostViewController.swift */,
 				F9AE315A1C926E5000C8A636 /* Main.storyboard */,
+				F9D86B431CBD735600FBC9BF /* ActivityViewController.swift */,
+				F9D86B451CBD73C400FBC9BF /* ActivityCell.swift */,
 				F96433721CA901690044548A /* PhotoLibraryCollectionViewCell.swift */,
 				F96433701CA6166A0044548A /* PhotoLibraryCollectionViewController.swift */,
 				F956A0C61CA4C682001B5D27 /* SelfieCell.swift */,
@@ -415,6 +421,8 @@
 				F9AE31571C926E5000C8A636 /* AppDelegate.swift in Sources */,
 				F9CC4F011C9B8E0700535D63 /* Post.swift in Sources */,
 				F96433711CA6166A0044548A /* PhotoLibraryCollectionViewController.swift in Sources */,
+				F9D86B461CBD73C400FBC9BF /* ActivityCell.swift in Sources */,
+				F9D86B441CBD735600FBC9BF /* ActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

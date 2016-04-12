@@ -16,11 +16,6 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         updateData()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     func updateData() {
@@ -31,8 +26,17 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
                 if let posts = posts as? [Post] {
                     self.posts = posts
                     self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
                 }
             }
+        }
+    }
+    
+    @IBAction func doubleTappedSelfie(sender: UITapGestureRecognizer) {
+        let tapLocation = sender.locationInView(tableView)
+        if let indexPathAtTapLocation = tableView.indexPathForRowAtPoint(tapLocation){
+            let cell = tableView.cellForRowAtIndexPath(indexPathAtTapLocation) as! SelfieCell
+            cell.tapAnimation()
         }
     }
     
@@ -85,14 +89,9 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? SelfieCell {
-//            let postViewController = UIStoryboard.in
-//            postViewController.postImageView.image = cell.selfieImageView.image
-//            self.navigationController?.pushViewController(postViewController, animated: true)
-//        }
-//    }
-    
+    @IBAction func refreshPulled(sender: UIRefreshControl) {
+        updateData()
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
@@ -113,13 +112,11 @@ class FeedTableViewController: UITableViewController, UIImagePickerControllerDel
     }
     // MARK: - Table view data source
 
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 1
-//    }
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return posts.count ?? 0
     }
 

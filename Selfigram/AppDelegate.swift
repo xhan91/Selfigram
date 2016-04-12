@@ -18,9 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // MARK: Parse part
         
+        
+//        Parse.setApplicationId("qpcf91x0NvWQFNXkoCs5oncu9PKn3MiQmF9qbuBW",
+//                               clientKey:"XYOGnzcNNH5V4tscG47ecIg9BzRQSG5tlBtaCPWf")
+        
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "myAppId"
+            $0.server = "https://selfie-xhan91.herokuapp.com/parse"
+        }
+        Parse.initializeWithConfiguration(configuration)
+        
         Post.registerSubclass()
-        Parse.setApplicationId("qpcf91x0NvWQFNXkoCs5oncu9PKn3MiQmF9qbuBW",
-                               clientKey:"XYOGnzcNNH5V4tscG47ecIg9BzRQSG5tlBtaCPWf")
+        Activity.registerSubclass()
         
         let user = PFUser()
         let username = "josh"

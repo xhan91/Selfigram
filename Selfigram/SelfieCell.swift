@@ -16,6 +16,7 @@ class SelfieCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var heartAnimationView: UIImageView!
     
     var post: Post? {
         didSet {
@@ -43,6 +44,18 @@ class SelfieCell: UITableViewCell {
                 })
             }
         }
+    }
+    
+    func tapAnimation() {
+        self.heartAnimationView.hidden = false
+        self.heartAnimationView.transform = CGAffineTransformMakeScale(1, 1)
+        
+        UIView.animateWithDuration(1.0, delay: 0, options: [], animations: { 
+            self.heartAnimationView.transform = CGAffineTransformMakeScale(3, 3)
+            }) { (_) in
+                self.heartAnimationView.hidden = true
+        }
+        likeButtonPressed(likeButton)
     }
     
     @IBAction func likeButtonPressed(sender: UIButton) {

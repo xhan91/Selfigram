@@ -20,10 +20,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        usernameLabel.text = "Josh"
-//        if let firstUser = uiRealm.objects(User).first {
-//            self.user = firstUser
-//        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -82,7 +78,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            if let imageData = UIImageJPEGRepresentation(image, 1.0),
+            if let imageData = UIImageJPEGRepresentation(image, 0.2),
                 let imageFile = PFFile(data: imageData),
                 let currentUser = PFUser.currentUser() {
                 currentUser["profileImage"] = imageFile
