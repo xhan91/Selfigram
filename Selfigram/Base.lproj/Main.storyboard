@@ -237,6 +237,7 @@
                                     <outlet property="likeButton" destination="8oD-ew-NDh" id="IaS-Fm-19n"/>
                                     <outlet property="selfieImageView" destination="TfZ-AO-iTk" id="m5b-2C-xGZ"/>
                                     <outlet property="usernameLabel" destination="FbL-K7-gZV" id="uaT-5Y-Gpa"/>
+                                    <segue destination="6MZ-Tb-Wt3" kind="show" identifier="fromFeedToPost" id="Pif-WO-Paz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -261,7 +262,7 @@
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmY-qM-mVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer cancelsTouchesInView="NO" numberOfTapsRequired="2" id="crc-0s-MVx">
+                <tapGestureRecognizer numberOfTapsRequired="2" id="crc-0s-MVx">
                     <connections>
                         <action selector="doubleTappedSelfie:" destination="Iba-CN-Gea" id="sW6-bd-mNm"/>
                     </connections>
@@ -415,4 +416,7 @@
         <image name="hearts-on" width="42" height="37"/>
         <image name="placeholder" width="256" height="256"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pif-WO-Paz"/>
+    </inferredMetricsTieBreakers>
 </document>
